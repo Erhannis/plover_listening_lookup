@@ -30,43 +30,30 @@ class NextStrokeUI(Tool):
         self.finished.connect(self.save_state)
 
     def _restore_state(self, settings: QSettings) -> None:
-        row_height = settings.value("row_height", None, int)
-        if row_height is not None:
-            self.config.row_height = row_height
+        if settings.contains("row_height"):
+            self.config.row_height = settings.value("row_height", type=int)
         
-        pinned = settings.value("pinned", None, bool)
-        if pinned is not None:
-            self.prev_pin = pinned
-            if pinned:
-                self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
+        self.prev_pin = False
+        if settings.contains("pinned") and settings.value("pinned", type=bool):
+            self.prev_pin = True
+            self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)
         
-        page_len = settings.value("page_len", None, int)
-        if page_len is not None:
-            self.config.page_len = page_len
+        if settings.contains("page_len"):
+            self.config.page_len = settings.value("page_len", type=int)
         
-        sorting_type = settings.value("sorting_type", None, int)
-        if sorting_type is not None:
-            self.config.sorting_type = SortingType(sorting_type)
+        if settings.contains("sorting_type"):
+            self.config.sorting_type = SortingType(settings.value("sorting_type", type=int))
         
-        window_height = settings.value("window_height", None, int)
-        if window_height is not None:
-            self.resize(self.width(), window_height)
-        
-        window_width = settings.value("window_width", None, int)
-        if window_width is not None:
-            self.resize(window_width, self.height())
+        if not settings.contains("geometry"):
+            self.resize(260, 400)
         
     def _save_state(self, settings: QSettings) -> None:
         settings.setValue("row_height", self.config.row_height)
         settings.setValue("pinned", self.pin_action.isChecked())
         settings.setValue("page_len", self.config.page_len)
         settings.setValue("sorting_type", self.config.sorting_type.value)
-        settings.setValue("window_height", self.height())
-        settings.setValue("window_width", self.width())
 
     def show_window(self) -> None:
-        self.resize(260, 400)
-
         self.current_label = QLabel(self)
         self.current_label.setText("Current Translation")
 
