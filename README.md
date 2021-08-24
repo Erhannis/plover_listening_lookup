@@ -2,11 +2,15 @@
 
 This is a plugin that displays the possible options for the next few strokes.
 
-![](./assets/screenshot.png)
+![](https://user-images.githubusercontent.com/30435273/130559245-0290a428-57cf-4ffe-b88f-906811557d70.png)
 
 ## Installation
 
-This plugin can't be installed from the Plover Plugin Manager yet, so you'll have to install from source using pip. Once we've ironed out everything, I'll try to get it onto the official plugin list. Feel free to consult the [Plover Discord](https://discord.com/invite/0lQde43a6dGmAMp2) for installation instructions.
+This plugin can't be installed from the Plover Plugin Manager yet. Use the following command to install the plugin:
+
+```
+plover -s plover_plugins install plover-next-stroke
+```
 
 
 ## Usage Notes
@@ -32,6 +36,7 @@ Since the plugin keeps an internal copy of your dictionaries to load suggestions
 | Frequency (Prioritize Non-numberic) | Same as Frequency, but strokes containing numbers are pushed to the back. |
 | Stroke Count | Order by lowest stroke count first, preserving original dictionary order. |
 | Alphabetical | Order by translation alphabetically. |
+
 
 ## License & Credits
 

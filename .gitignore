@@ -1,6 +1,9 @@
 # Python cache and misc
 __pycache__/
 
+# Assets
+assets/
+
 # Artefacts and build files
 build/
 dist/
