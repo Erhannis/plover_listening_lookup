@@ -36,7 +36,7 @@ def num_score(outline: OUTLINE_TYPE) -> Tuple[int, ...]:
     return tuple(to_int(s, 999999) for s in outline)
 
 
-def get_sorter(sorting_type: SortingType) -> Callable[Tuple[OUTLINE_TYPE, str], Union[tuple, str, int]]:
+def get_sorter(sorting_type: SortingType) -> Callable[[Tuple[OUTLINE_TYPE, str]], Union[tuple, str, int]]:
     if sorting_type == SortingType.FREQUENCY:
         if system.ORTHOGRAPHY_WORDS is not None:
             return lambda s: (len(s[0]), system.ORTHOGRAPHY_WORDS.get(s[1], 999999))
