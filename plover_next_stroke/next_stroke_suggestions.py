@@ -1,14 +1,16 @@
 from PyQt5.QtWidgets import QTableWidgetItem
 
-from typing import Dict, Tuple, List, Optional
+from typing import Dict, Tuple, List, Optional, Any
 
+from plover import system
 from plover.engine import StenoEngine
+from plover.registry import registry
 from plover.steno import Stroke
 from plover.steno_dictionary import StenoDictionary, StenoDictionaryCollection
 from plover.translation import Translation
 
 from plover_next_stroke.next_stroke_ui import NextStrokeUI
-from plover_next_stroke.sorting import SortingType, get_sorter
+from plover_next_stroke.sorting import SortingType, get_sorter, sort_suggestions
 
 
 STROKE_TYPE = str
@@ -65,19 +67,24 @@ class TranslationNode:
 
 
 class NextStrokeSuggestions(NextStrokeUI):
-    _translate_tree = None
-    _suggestions: List[Tuple[OUTLINE_TYPE, str]] = []
-    _prev_node: Optional[TranslationNode] = None
-    _page = 0
-
     def __init__(self, engine: StenoEngine) -> None:
         super().__init__(engine)
 
+        self._translate_tree = None
+        self._suggestions: List[Tuple[OUTLINE_TYPE, str]] = []
+        self._prev_node: Optional[TranslationNode] = None
+        self._page = 0
+
+        self._stroke_formatter: Optional[Callable[[STROKE_TYPE], STROKE_TYPE]] = None
+        self._translation_formatter: Optional[Callable[[str], str]] = None
+        self._system_sorter: Optional[Callable[[Tuple[OUTLINE_TYPE, str]], Any]] = None
+
         engine.signal_connect("stroked", self.on_stroke)
         engine.signal_connect("dictionaries_loaded", self.on_dict_update)
-        engine.signal_connect("config_changed", self.on_dict_update)
+        engine.signal_connect("config_changed", self.on_config_changed)
         engine.signal_connect("add_translation", self.on_dict_update)
         self.index_dictionaries()
+        self.on_config_changed()
 
     def update_table(self) -> None:
         top_index = self._page * self.config.page_len
@@ -138,7 +145,7 @@ class NextStrokeSuggestions(NextStrokeUI):
                 )
 
             tree_node = self._translate_tree.get_node(current_outline)
-            suggestions = []
+            queued_suggestions = []
 
             if tree_node is not None:
                 suggestions = tree_node.get_suggestions()
@@ -149,10 +156,17 @@ class NextStrokeSuggestions(NextStrokeUI):
                     if traced_node is not None and traced_node is not tree_node:
                         suggestions += traced_node.get_suggestions()
 
-                suggestions.sort(key=get_sorter(self.config.sorting_type))
+                queued_suggestions = sort_suggestions(
+                    suggestions=suggestions,
+                    sorting_type=self.config.sorting_type,
+                    stroke_formatter=self._stroke_formatter,
+                    translation_formatter=self._translation_formatter,
+                    system_sorter=self._system_sorter
+                )
+
                 self._prev_node = tree_node
 
-            self._suggestions = suggestions
+            self._suggestions = queued_suggestions
             self._page = 0
         
         self.update_table()
@@ -169,3 +183,11 @@ class NextStrokeSuggestions(NextStrokeUI):
 
     def on_dict_update(self) -> None: 
         self.index_dictionaries()
+    
+    def on_config_changed(self) -> None:
+        system_name = system.NAME
+        system_mod = registry.get_plugin("system", system_name).obj
+
+        self._stroke_formatter = getattr(system_mod, "NS_STROKE_FORMATTER", None)
+        self._translation_formatter = getattr(system_mod, "NS_TRANSLATION_FORMATTER", None)
+        self._system_sorter = getattr(system_mod, "NS_SORTER", None)

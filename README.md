@@ -36,7 +36,34 @@ Since the plugin keeps an internal copy of your dictionaries to load suggestions
 | Frequency (Prioritize Non-numberic) | Same as Frequency, but strokes containing numbers are pushed to the back. |
 | Stroke Count | Order by lowest stroke count first, preserving original dictionary order. |
 | Alphabetical | Order by translation alphabetically. |
+| System Defined | Order defined by the system. The default English stenotype system doesn't have a defined display order. Defaults to Frequency. |
 
+### System-defined functions
+
+If you're designing a language system for Plover and you'd like to customize the display order and format (for instance, converting certain strokes to numbers), you may do so by including these functions in your system file:
+
+```py
+def NS_STROKE_FORMATTER(stroke: str) -> str:
+    """Formats single strokes, such as STROEBG"""
+    return ...
+
+def NS_TRANSLATION_FORMATTER(translation: str) -> str:
+    """Formats the translated string, such as 'stroke'"""
+    return ...
+
+def NS_SORTER(entry: Tuple[Tuple[str], str]) -> int:
+    """
+    Scores outline-translation pairs, such as (("TRAPBS", "HRAEUT"), "translate")
+
+    Pairs are ordered from smallest to biggest;
+    it need not be an int - anything that can be compared
+    works, including strings or tuples of ints.
+    """
+    outline, translation = entry
+    return ...
+```
+
+All next stroke suggestions will be run through the two formatters (if available) before being sorted. The sorter will only be used if the user changes their display order to "System Defined".
 
 ## License & Credits
 
