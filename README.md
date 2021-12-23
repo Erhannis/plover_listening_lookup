@@ -1,6 +1,5 @@
 # Next Stroke Suggestions for Plover
 [![PyPI](https://img.shields.io/pypi/v/plover-next-stroke)](https://pypi.org/project/plover-next-stroke/)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/plover-next-stroke)
 ![GitHub](https://img.shields.io/github/license/Kaoffie/plover_next_stroke)
 
 This is a plugin that displays the possible options for the next few strokes.
