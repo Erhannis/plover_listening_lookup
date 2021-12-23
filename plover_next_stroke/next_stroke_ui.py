@@ -58,7 +58,7 @@ class NextStrokeUI(Tool):
         self.current_label.setText("Current Translation")
 
         self.current_translation = QPlainTextEdit(self)
-        self.current_translation.setFixedHeight(self.config.row_height)
+        self.current_translation.setFixedHeight(30)
         self.current_translation.setLineWrapMode(True)
         self.current_translation.setReadOnly(True)
         self.current_translation.setPlainText("Awaiting Input")
@@ -127,7 +127,6 @@ class NextStrokeUI(Tool):
         config_dialog = ConfigUI(self.config.copy(), self)
         if config_dialog.exec():
             self.config = config_dialog.temp_config
-            self.current_translation.setFixedHeight(self.config.row_height)
             self.suggestions_table.setRowCount(self.config.page_len)
             self.suggestions_table.verticalHeader().setDefaultSectionSize(self.config.row_height)
             self.suggestions_table.setMinimumHeight(self.config.row_height * self.config.page_len + self.config.row_height)

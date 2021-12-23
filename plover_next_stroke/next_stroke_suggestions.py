@@ -89,10 +89,6 @@ class NextStrokeSuggestions(NextStrokeUI):
     def update_table(self) -> None:
         top_index = self._page * self.config.page_len
 
-        print("Updating table, config:")
-        print("row height: ", self.config.row_height)
-        print("page_len: ", self.config.page_len)
-
         page_count = (len(self._suggestions) - 1) // self.config.page_len + 1
         displayed = self._suggestions[top_index:top_index + self.config.page_len]
         display_len = len(displayed)
