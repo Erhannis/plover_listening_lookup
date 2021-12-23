@@ -9,12 +9,7 @@ This is a plugin that displays the possible options for the next few strokes.
 
 ## Installation
 
-This plugin can't be installed from the Plover Plugin Manager yet. Use the following command to install the plugin:
-
-```
-plover -s plover_plugins install plover-next-stroke
-```
-
+You can install this plugin using the built-in Plover Plugin Manager, under the name `plover-next-stroke`.
 
 ## Usage Notes
 
