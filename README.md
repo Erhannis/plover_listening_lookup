@@ -11,7 +11,7 @@ Based off https://github.com/Kaoffie/plover_next_stroke .  There might be some l
 
 ## Installation
 
-(The following line may not yet be true.) //#DUMMY Remove this once added.
+(The following line may not yet be true.) //#DUMMY Remove this once added.<br/>
 You can install this plugin using the built-in Plover Plugin Manager, under the name `plover-listening-lookup`.
 
 Or:
