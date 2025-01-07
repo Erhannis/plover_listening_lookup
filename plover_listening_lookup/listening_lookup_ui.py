@@ -72,8 +72,7 @@ class ListeningLookupUI(Tool):
         self.pin_action.setShortcut(QKeySequence("Ctrl+P"))
 
         self.settings_action = QAction(self)
-        self.settings_action.setText("Next Stroke Suggestions settings")
-        self.settings_action.setText("Configure Next Stroke Suggestions.")
+        self.settings_action.setText("Configure Listening Lookup.")
         self.settings_action.setIcon(QIcon(":/listening_lookup/settings.svg"))
         self.settings_action.triggered.connect(self.on_settings)
         self.settings_action.setShortcut(QKeySequence("Ctrl+S"))
