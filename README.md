@@ -18,7 +18,7 @@ You can install this plugin using the built-in Plover Plugin Manager, under the 
 
 Or:
 ```
-plover -s plover_plugins install git+https://github.com/Erhannis/plover_listening_lookup.git
+plover -s plover_plugins install -e git+https://github.com/Erhannis/plover_listening_lookup.git#egg=plover_listening_lookup
 ```
 
 ## License & Credits
