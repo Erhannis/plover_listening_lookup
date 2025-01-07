@@ -1,9 +1,7 @@
 # Listening Lookup for Plover
-//#DUMMY Add to PyPi I guess
+//#DUMMY Add to PyPi I guess<br/>
 [![PyPI](https://img.shields.io/pypi/v/plover-listening-lookup)](https://pypi.org/project/plover-listening-lookup/)
 ![GitHub](https://img.shields.io/github/license/Erhannis/plover_listening_lookup)
-
-//#DUMMY
 
 This is a Plover plugin that listens to normal keyboard keypresses and gives suggested strokes for each detected word, as though you were typing into the built-in Lookup window.  Intended for learners to get a feel for words while still typing normally.
 
@@ -13,13 +11,16 @@ Based off https://github.com/Kaoffie/plover_next_stroke .  There might be some l
 
 ## Installation
 
-(The following line may not yet be true.) //#DUMMY Remove this once added.
+(The following line may not yet be true.) //#DUMMY Remove this once added.<br/>
 You can install this plugin using the built-in Plover Plugin Manager, under the name `plover-listening-lookup`.
 
 Or:
 ```
-plover -s plover_plugins install -e git+https://github.com/Erhannis/plover_listening_lookup.git#egg=plover_listening_lookup
+sudo apt install pyqt5-dev-tools
+plover -s plover_plugins install --force PyQt5
+plover -s plover_plugins install git+https://github.com/Erhannis/plover_listening_lookup.git#egg=plover_listening_lookup
 ```
+(Not sure if ALL those steps are needed, but I think that's what worked for me.)
 
 ## License & Credits
 
