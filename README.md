@@ -1,4 +1,4 @@
-# Next Stroke Suggestions for Plover
+# Listening Lookup for Plover
 //#DUMMY Add to PyPi I guess
 [![PyPI](https://img.shields.io/pypi/v/plover-next-stroke)](https://pypi.org/project/plover-listening-lookup/)
 ![GitHub](https://img.shields.io/github/license/Erhannis/plover_listening_lookup)
