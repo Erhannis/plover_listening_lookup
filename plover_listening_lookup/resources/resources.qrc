@@ -1,7 +1,7 @@
 <RCC>
-  <qresource prefix="/next_stroke">
+  <qresource prefix="/listening_lookup">
     <file>pin.svg</file>
     <file>settings.svg</file>
-    <file>timeline.svg</file>
+    <file>ear.svg</file>
   </qresource>
 </RCC>
