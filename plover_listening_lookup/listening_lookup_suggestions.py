@@ -201,15 +201,6 @@ class ListeningLookupSuggestions(ListeningLookupUI):
             #THINK Notably, if there aren't any suggestions, nothing gets added to the list
             self.suggestions_table.append(suggestion_list)
 
-        if self._current_word == "scroll":
-            log.debug("scroll scroll scroll")
-            self.suggestions_table.scrollToTop()
-
-        if self._current_word == "clear":
-            log.debug("clear clear clear")
-            self._last_words.clear()
-            self.suggestions_table.clear()
-
 
     def on_stroke(self, _: tuple) -> None:
         pass
