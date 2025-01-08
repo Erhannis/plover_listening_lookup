@@ -13,13 +13,22 @@ Based off https://github.com/Kaoffie/plover_next_stroke .  There might be some l
 You can install this plugin using the built-in Plover Plugin Manager, under the name `plover-listening-lookup`.
 
 Or:
-```
+```bash
 sudo apt install pyqt5-dev-tools
 plover -s plover_plugins install --force PyQt5
 plover -s plover_plugins install git+https://github.com/Erhannis/plover_listening_lookup.git#egg=plover_listening_lookup
 ```
 (Not sure if ALL those steps are needed, but I think that's what worked for me.)<br/>
 (I think you can also clone it and do `plover -s plover_plugins install PATH_TO_REPO`?  Might need to do a `pip install .` or st first, or maybe `python3 setup.py build_py build_ui`?)<br/>
+
+## Build and publish
+
+Largely for my own benefit, here's how to publish a new build.
+```bash
+rm dist/*
+python setup.py sdist bdist_wheel
+twine upload dist/*
+```
 
 ## License & Credits
 
